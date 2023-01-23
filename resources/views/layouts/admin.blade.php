@@ -482,7 +482,7 @@
           <!--navigation-->
           <ul class="metismenu" id="menu">
             <li>
-              <a href="{{url('admin')}}">
+              <a href="{{url('dashboard')}}">
                 <div class="parent-icon"><i class="bi bi-house-fill"></i>
                 </div>
                 <div class="menu-title">Dashboard</div>
@@ -655,12 +655,13 @@
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="{{ url('logout') }}">
                 <div class="parent-icon"><i class="bi bi-box-arrow-in-left"></i>
                 </div>
                 <div class="menu-title">Logout</div>
               </a>
             </li>
+            
           <!--end navigation-->
        </aside>
        <!--end sidebar -->

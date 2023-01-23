@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
@@ -35,12 +36,22 @@ use App\Http\Controllers\HandbookController;
 |
 */
 
+Route::group(['middleware' => 'prevent-back-history'],function(){
+
 Route::get('/', function () {
-    return view('login');
+    return view('auth.login');
 });
 
+Route::get('/', [CustomAuthController::class, 'login'])->middleware('alreadyLoggedIn');
+Route::get('/login', [CustomAuthController::class, 'login'])->middleware('alreadyLoggedIn');
+Route::get('/registration', [CustomAuthController::class, 'registration'])->middleware('alreadyLoggedIn');
+Route::post('/register', [CustomAuthController::class, 'register'])->name('register');
+Route::post('/login', [CustomAuthController::class, 'loginUser'])->name('loginUser');
+Route::get('/dashboard', [CustomAuthController::class, 'dashboard'])->middleware('isLoggedIn');
+Route::get('/logout', [CustomAuthController::class, 'logout']);
+
 // Route::get('admin', [AdminController::class, 'dashboard']);
-Route::post('admin', [AdminController::class, 'dashboard']);
+// Route::post('admin', [AdminController::class, 'dashboard']);
 
 //Department Resource
 Route::resource('department', DepartmentController::class);
@@ -140,3 +151,7 @@ Route::resource('vehiclelog', VehiclelogController::class);
 
 //Handbook Resource
 Route::resource('handbook', HandbookController::class);
+
+
+
+});
