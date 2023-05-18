@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Document;
+use App\Models\User;
+use Session;
 
 class DocumentController extends Controller
 {
@@ -31,7 +33,8 @@ class DocumentController extends Controller
     {
         $d = Project::find($id);
         $file = Document::all()->where('project_id', $d->id);
-        return view('document.create', compact('d', 'file'));
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('document.create', compact('d', 'file','userName'));
     }
 
     /**
@@ -102,7 +105,8 @@ class DocumentController extends Controller
     {
         $d = Project::find($id);
         $data = Document::all();
-        return view('document.show', compact('d', 'data'));
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('document.show', compact('d', 'data','userName'));
     }
 
     /**
@@ -115,7 +119,8 @@ class DocumentController extends Controller
     {
         $doc = Document::find($id);
         $d = Project::where('id', $doc->project_id)->value('id');
-        return view('document.edit', compact('d', 'doc'));
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('document.edit', compact('d', 'doc','userName'));
     }
 
     /**
@@ -127,7 +132,51 @@ class DocumentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $d = Document::find($id);
+        $d->delete();
+
+        $request->validate([
+            'document_name' => 'required',
+            'file' =>
+                'required|file|mimes:png,jpg,pdf,xls,xlsx,doc,docx,ppt,pptx',
+        ]);
+
+        $input = $request->all();
+
+        // if ($request->hasfile('file')) {
+        //     $doc = $request->file('file');
+        //     $docname = $doc->getClientOriginalName();
+        //     $doc->move(public_path('/documents'), $docname);
+        //     $input['file'] = $docname;
+        // }
+
+        if ($request->hasfile('file')) {
+            $file = $request->file('file');
+            $extenstion = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extenstion;
+            $path = public_path() . '/files';
+            $file->move($path, $filename);
+            $input['file'] = $filename;
+        }
+
+        // if ($request->hasfile('file')) {
+        //     $file = $request->file('file');
+        //     $extenstion = $file->getClientOriginalExtension();
+        //     $filename = time() . '.' . $extenstion;
+        //     $file->move(public_path('/files'), $filename);
+        //     // $employee->image = $filename;
+        // }
+
+        $docFile = Document::create($input);
+        $proj_id = $docFile->project_id;
+        // return redirect()
+        //     ->back()
+        //     ->with('success', 'Task created successfuly');
+
+        return redirect()
+            ->route('document.show', [$proj_id])
+            ->with('success', 'Document updated successfuly');
+
     }
 
     /**

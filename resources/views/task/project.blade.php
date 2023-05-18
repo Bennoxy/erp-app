@@ -168,7 +168,8 @@
                                             <td>{{ $count }}</td>
                                             <td><a class="text-info" href="{{ route('task.show',$d->id) }}">{{$d->title}}</a></td>
                                             <td>{{$d->deadline}}</td>
-                                            <td>{{$employee = DB::table('employees')->where('id', $d->employee_id)->value('name')}}</td>
+                                            {{-- <td>{{$employee = DB::table('employees')->where('id', $d->employee_id)->value('name')}}</td> --}}
+                                            <td>{{$employee = DB::table('users')->where('id', $d->employee_id)->value('name')}}</td>{{-- employee_id points to id in user table --}}
                                             <td>{{$milestone = DB::table('milestones')->where('id', $d->milestone_id)->value('name')}}</td>
                                             <td>{{$d->status}}</td>
                                             <td>

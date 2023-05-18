@@ -10,7 +10,7 @@
     <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="{{asset('public')}}/assets/images/favicon-32x32.png" type="image/png" />
+  <link rel="icon" href="{{asset('public')}}/assets/images/logo-icon.png" type="image/png" />
   <!-- Bootstrap CSS -->
   <link href="{{asset('public')}}/assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="{{asset('public')}}/assets/css/bootstrap-extended.css" rel="stylesheet" />

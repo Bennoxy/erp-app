@@ -67,15 +67,15 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="employee_id" class="form-label">Assigned Employee</label>
-                                        <select id="employee_id" name="employee_id" class="form-select " required>
+                                        <select id="employee_id" name="employee_id" class="form-select select-search" style="font-size: 1rem;" required>
                                             <option value="" disabled selected hidden>- Select - </option>
                                             {{-- Loop and Populate your data --}}
-                                            @foreach($employee as $emp) 
+                                            @foreach($user as $emp) 
                                             <option value="{{$emp->id}}">{{$emp->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label for="status" class="form-label">Status</label>
                                         <select id="status" name="status" class="form-select " required>
                                             <option data-id="disabled" disabled selected hidden>- Select -</option>
@@ -85,7 +85,7 @@
                                         </select>
                                     </div>
                                     <input type="hidden" name="project_id" value="{{ $d->id }}">
-                                    <div class="col-4">
+                                    <div class="col-md-6">
                                         <label for="milestone_id" class="form-label">Milestone</label>
                                         <select id="milestone_id" name="milestone_id" class="form-select ">
                                             <option value="" disabled selected hidden>- Select - </option>
@@ -95,10 +95,10 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <label for="created_by" class="form-label">Created by</label>
                                         <input type="text" class="form-control " id="created_by" name="created_by" required>
-                                    </div>                                    
+                                    </div>                                     --}}
                                     <div class="">
                                         <button type="submit" class="btn btn-primary">Add Task</button>
                                     </div>

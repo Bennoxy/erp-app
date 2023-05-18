@@ -47,14 +47,19 @@
                                 <form class="form-body row g-3" action="{{ route('employee.store') }}" enctype="multipart/form-data" method="POST" >
                                     @csrf  
 
-                                
                                     <div class="col-md-12">
                                         <label for="name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="name" name="name" required>
+                                        <select id="name" name="name" class="form-select select-search" style="font-size: 1rem;" required>
+                                            <option value="" disabled selected hidden style="height: 40px;">- Select - </option>
+                                            {{-- Loop and Populate your data --}}
+                                            @foreach($user as $u) 
+                                            <option value="{{$u->id}}">{{$u->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="position" class="form-label">Position</label>
-                                        <select id="position" name="position" class="form-select" required>
+                                        <select id="position" name="position" class="form-select select-search" style="font-size: 1rem;" required>
                                             <option value="" disabled selected hidden>- Select Position -</option>
                                             {{-- Loop and Populate your data --}}
                                             @foreach($position as $pos) 
@@ -64,7 +69,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="department" class="form-label">Department</label>
-                                        <select id="department_id" name="department_id" class="form-select" required>
+                                        <select id="department_id" name="department_id" class="form-select select-search" style="font-size: 1rem;" required>
                                             <option value="" disabled selected hidden>- Select Department -</option>
                                             {{-- Loop and Populate your data --}}
                                             @foreach($department as $dep) 
@@ -98,7 +103,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label for="state_of_Origin" class="form-label">State of Origin</label>
-                                        <select id="state_of_Origin" name="state_of_Origin" class="form-select" required>
+                                        <select id="state_of_Origin" name="state_of_Origin" class="form-select select-search" style="font-size: 1rem;" required>
                                             <option value="" disabled selected hidden>- Select State -</option>
                                             {{-- Loop and Populate your data --}}
                                             @foreach($state as $st) 
@@ -108,7 +113,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label for="local_Government" class="form-label">Local Government</label>
-                                        <select id="local_Government" name="local_Government" class="form-select" required>                                            
+                                        <select id="local_Government" name="local_Government" class="form-select select-search" style="font-size: 1rem;" required>                                            
                                         </select>
                                     </div>
                                     <div class="col-md-4">

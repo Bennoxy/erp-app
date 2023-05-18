@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Department;
+use App\Models\User;
+use Session;
 
 class DepartmentController extends Controller
 {
@@ -14,8 +16,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
+        $userName = User::where('id',Session::get('loginId'))->value('name');
         $data = Department::all();
-        return view('department.index', compact('data'));
+        return view('department.index', compact('data','userName'));
     }
 
     /**
@@ -25,7 +28,8 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        return view('department.create');
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('department.create', compact('userName'));
     }
 
     /**
@@ -69,7 +73,8 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         $d = Department::find($id);
-        return view('department.edit', compact('d') );
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('department.edit', compact('d','userName') );
     }
 
     /**

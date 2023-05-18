@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="{{asset('public')}}/assets/images/favicon-32x32.png" type="image/png" />
+  <link rel="icon" href="{{asset('public')}}/assets/images/logo-icon.png" type="image/png" />
   {{-- Remove advisably during production --}}
   <meta http-equiv='cache-control' content='no-cache'>
   <meta http-equiv='expires' content='0'>
@@ -54,11 +54,12 @@
           <div class="mobile-toggle-icon fs-3">
               <i class="bi bi-list"></i>
             </div>
-            <form class="searchbar">
+            {{-- <form class="searchbar">
                 <div class="position-absolute top-50 translate-middle-y search-icon ms-3"><i class="bi bi-search"></i></div>
                 <input class="form-control" type="text" placeholder="Type here to search">
                 <div class="position-absolute top-50 translate-middle-y search-close-icon"><i class="bi bi-x-lg"></i></div>
-            </form>
+            </form> --}}
+            <h5>Hi, {{ $userName }}</h5>
             <div class="top-navbar-right ms-auto">
               <ul class="navbar-nav align-items-center">
                 <li class="nav-item search-toggle-icon">
@@ -88,14 +89,14 @@
                    </li>
                    <li><hr class="dropdown-divider"></li>
                    <li>
-                      <a class="dropdown-item" href="pages-user-profile.html">
+                      <a class="dropdown-item" href="#">
                          <div class="d-flex align-items-center">
                            <div class=""><i class="bi bi-person-fill"></i></div>
                            <div class="ms-3"><span>Profile</span></div>
                          </div>
                        </a>
                     </li>
-                    <li>
+                    {{-- <li>
                       <a class="dropdown-item" href="#">
                          <div class="d-flex align-items-center">
                            <div class=""><i class="bi bi-gear-fill"></i></div>
@@ -126,10 +127,10 @@
                            <div class="ms-3"><span>Downloads</span></div>
                          </div>
                        </a>
-                    </li>
-                    <li><hr class="dropdown-divider"></li>
+                    </li> 
+                    <li><hr class="dropdown-divider"></li> --}}
                     <li>
-                      <a class="dropdown-item" href="authentication-signup-with-header-footer.html">
+                      <a class="dropdown-item" href="{{ url('logout') }}">
                          <div class="d-flex align-items-center">
                            <div class=""><i class="bi bi-lock-fill"></i></div>
                            <div class="ms-3"><span>Logout</span></div>
@@ -138,7 +139,7 @@
                     </li>
                 </ul>
               </li>
-              <li class="nav-item dropdown dropdown-large">
+              {{-- <li class="nav-item dropdown dropdown-large">
                 <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
                   <div class="projects">
                     <i class="bi bi-grid-3x3-gap-fill"></i>
@@ -238,8 +239,8 @@
                     </div>
                    </div><!--end row-->
                 </div>
-              </li>
-              <li class="nav-item dropdown dropdown-large">
+              </li> --}}
+              {{-- <li class="nav-item dropdown dropdown-large">
                 <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
                   <div class="messages">
                     <span class="notify-badge">5</span>
@@ -340,8 +341,8 @@
                     </a>
                 </div>
                </div>
-              </li>
-              <li class="nav-item dropdown dropdown-large">
+              </li> --}}
+              {{-- <li class="nav-item dropdown dropdown-large">
                 <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
                   <div class="notifications">
                     <span class="notify-badge">8</span>
@@ -460,7 +461,7 @@
                      </a>
                  </div>
                 </div>
-              </li>
+              </li> --}}
               </ul>
               </div>
         </nav>
@@ -474,7 +475,7 @@
               <img src="{{asset('public')}}/assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
             </div>
             <div>
-              <h4 class="logo-text">ERP</h4>
+              <h4 class="logo-text">Powerec</h4>
             </div>
             <div class="toggle-icon ms-auto"> <i class="bi bi-list"></i>
             </div>

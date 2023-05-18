@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Subcontractor;
 use App\Models\State;
+use App\Models\User;
+use Session;
 
 class SubcontractorController extends Controller
 {
@@ -16,7 +18,8 @@ class SubcontractorController extends Controller
     public function index()
     {
         $data = Subcontractor::all();
-        return view('subcontractor.index', compact('data'));
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('subcontractor.index', compact('data','userName'));
     }
 
     /**
@@ -27,7 +30,8 @@ class SubcontractorController extends Controller
     public function create()
     {
         $state = State::all(); //fetch from State Model
-        return view('subcontractor.create', compact('state'));
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('subcontractor.create', compact('state','userName'));
     }
 
     /**
@@ -76,7 +80,8 @@ class SubcontractorController extends Controller
     {
         $state = State::all(); //fetch from State Model
         $d = Subcontractor::find($id);
-        return view('subcontractor.edit', compact('state', 'd'));
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('subcontractor.edit', compact('state', 'd', 'userName'));
     }
 
     /**

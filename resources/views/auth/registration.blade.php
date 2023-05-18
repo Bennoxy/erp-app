@@ -88,7 +88,7 @@
              </div>
              <div class="col-lg-6">
                <div class="card-body p-4 p-sm-5">
-                 <h5 class="card-title mb-5">ERP User Registration</h5>
+                 <h5 class="card-title mb-5">PRO-TASK User Registration</h5>
                  <!-- <p class="card-text mb-5">See your growth and get consulting support!</p> -->
                  @if (Session::has('success'))
                    <div class="alert alert-success">{{ Session::get('success') }}</div>

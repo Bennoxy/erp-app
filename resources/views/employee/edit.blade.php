@@ -51,11 +51,11 @@
                                 
                                     <div class="col-md-12">
                                         <label for="Name" class="form-label">Name</label>
-                                        <input type="text" class="form-control" value="{{ $d->name }}" id="Name" name="name" required>
+                                        <input type="text" class="form-control" value="{{ $d->name }}" id="Name" name="name" readonly>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="position" class="form-label">Position</label>
-                                        <select id="position" name="position" class="form-select" required>
+                                        <select id="position" name="position" class="form-select select-search" style="font-size: 1rem;" required>
                                             <option value="{{ $d->position }}" hidden>{{ $positionEmp = DB::table('positions')->where('id', $d->position)->value('position_name') }}</option>
                                             {{-- Loop and Populate your data --}}
                                             @foreach($position as $pos) 
@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="department" class="form-label">Department</label>
-                                        <select id="department_id" name="department_id" class="form-select" required>
+                                        <select id="department_id" name="department_id" class="form-select select-search" style="font-size: 1rem;" required>
                                             <option value="{{ $d->department_id }}" hidden>{{ $departmentEmp = DB::table('departments')->where('id', $d->department_id)->value('department_name') }}</option>
                                             {{-- Loop and Populate your data --}}
                                             @foreach($department as $dep) 
@@ -99,7 +99,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label for="state_of_Origin" class="form-label">State of Origin</label>
-                                        <select id="state_of_Origin" name="state_of_Origin" class="form-select"  required>
+                                        <select id="state_of_Origin" name="state_of_Origin" class="form-select select-search" style="font-size: 1rem;"  required>
                                             <option value="{{ $d->state_of_Origin }}" hidden>{{ $stateEmp = DB::table('states')->where('id', $d->state_of_Origin)->value('name') }}</option>
                                             {{-- Loop and Populate your data --}}
                                             @foreach($state as $st) 
@@ -109,7 +109,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label for="local_Government" class="form-label">Local Government</label>
-                                        <select id="local_Government" name="local_Government" class="form-select" required> 
+                                        <select id="local_Government" name="local_Government" class="form-select select-search" style="font-size: 1rem;" required> 
                                             <option value="{{ $d->local_Government }}" hidden>{{ $localEmp = DB::table('locals')->where('id', $d->local_Government)->value('name') }}</option>                                           
                                         </select>
                                     </div>

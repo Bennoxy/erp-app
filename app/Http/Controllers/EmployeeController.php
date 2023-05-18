@@ -8,6 +8,8 @@ use App\Models\State;
 use App\Models\Local;
 use App\Models\Department;
 use App\Models\Position;
+use App\Models\User;
+use Session;
 
 class EmployeeController extends Controller
 {
@@ -19,7 +21,8 @@ class EmployeeController extends Controller
     public function index()
     {
         $data = Employee::latest()->paginate(10);
-        return view('employee.index', compact('data'))->with(
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('employee.index', compact('data', 'userName'))->with(
             request()->input('page')
         );
     }
@@ -35,9 +38,11 @@ class EmployeeController extends Controller
         $state = State::all(); //fetch from State Model
         $department = Department::all(); //fetch from State Model
         $position = Position::all(); //fetch from Position Model
+        $user = User::all();
+        $userName = User::where('id',Session::get('loginId'))->value('name');
         return view(
             'employee.create',
-            compact('state', 'department', 'position')
+            compact('state', 'department', 'position','userName','user')
         );
     }
 
@@ -135,9 +140,10 @@ class EmployeeController extends Controller
         $department = Department::all(); //fetch from State Model
         $position = Position::all(); //fetch from Position Model
         $d = Employee::find($id);
+        $userName = User::where('id',Session::get('loginId'))->value('name');
         return view(
             'employee.edit',
-            compact('d', 'state', 'department', 'position')
+            compact('d', 'state', 'department', 'position','userName')
         );
     }
 

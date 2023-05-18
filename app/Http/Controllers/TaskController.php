@@ -7,6 +7,8 @@ use App\Models\Project;
 use App\Models\Employee;
 use App\Models\Task;
 use App\Models\Milestone;
+use App\Models\User;
+use Session;
 
 class TaskController extends Controller
 {
@@ -30,7 +32,8 @@ class TaskController extends Controller
         $d = Project::all();
         $employee = Employee::all();
         $milestone = Milestone::all();
-        return view('task.create', compact('d', 'employee', 'milestone'));
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('task.create', compact('d', 'employee', 'milestone','userName'));
     }
 
     public function createTask($id)
@@ -38,8 +41,10 @@ class TaskController extends Controller
         $d = Project::find($id);
         $employee = Employee::all();
         $milestone = Milestone::all()->where('project_id', $d->id);
+        $user = User::all();
+        $userName = User::where('id',Session::get('loginId'))->value('name');
         // $users = DB::table('users')->where('votes', 100)->get();
-        return view('task.createTask', compact('d', 'employee', 'milestone'));
+        return view('task.createTask', compact('d', 'employee', 'milestone','userName','user'));
     }
 
     /**
@@ -76,18 +81,22 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        // $d = Project::find($id);
-        // $employee = Employee::all(); //fetch from Emplote Model
-        // $data = Task::all();
-        // return view('task.show', compact('d', 'employee', 'data'));
+        $task = Task::find($id);
+        $d = Project::where('id', $task->project_id)->value('id');
+        $employee = Employee::all(); //fetch from Employee Model
+        $milestone = Milestone::all();
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('task.show', compact('d', 'employee', 'task', 'milestone','userName'));
     }
 
     public function showProject($id)
     {
         $d = Project::find($id);
         $employee = Employee::all(); //fetch from Emplote Model
+        $user = User::all();
         $data = Task::all();
-        return view('task.project', compact('d', 'employee', 'data'));
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('task.project', compact('d', 'employee', 'data','userName','user'));
     }
 
     /**
@@ -101,10 +110,12 @@ class TaskController extends Controller
         $task = Task::find($id);
         $d = Project::where('id', $task->project_id)->value('id');
         $employee = Employee::all();
+        $user = User::all();
         $milestone = Milestone::all();
+        $userName = User::where('id',Session::get('loginId'))->value('name');
         return view(
             'task.editTask',
-            compact('d', 'task', 'employee', 'milestone')
+            compact('d', 'task', 'employee', 'milestone','userName','user')
         );
     }
 
@@ -113,7 +124,8 @@ class TaskController extends Controller
         $d = Task::find($id);
         $employee = Employee::all();
         $project = Project::all();
-        return view('task.edit', compact('d', 'employee', 'project'));
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('task.edit', compact('d', 'employee', 'project','userName'));
     }
 
     /**
@@ -176,9 +188,10 @@ class TaskController extends Controller
     public function destroy($id)
     {
         $d = Task::find($id);
+        $proj_id = $d->project_id;
         $d->delete();
         return redirect()
-            ->route('task.index')
+            ->route('taskProject', [$proj_id])
             ->with('success', 'Task deleted successfully');
     }
 }

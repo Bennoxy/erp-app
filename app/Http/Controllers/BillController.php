@@ -10,6 +10,8 @@ use App\Models\Subcontractor;
 use App\Models\Freelancer;
 use App\Models\Bill;
 use App\Models\details_bill;
+use App\Models\User;
+use Session;
 
 class BillController extends Controller
 {
@@ -21,7 +23,8 @@ class BillController extends Controller
     public function index()
     {
         $data = Bill::all();
-        return view('bill.index', compact('data'));
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('bill.index', compact('data','userName'));
     }
 
     /**
@@ -32,7 +35,8 @@ class BillController extends Controller
     public function create()
     {
         $client = Client::all(); //fetch from Client Model
-        return view('bill.create', compact('client'));
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('bill.create', compact('client','userName'));
     }
 
     /**
@@ -109,9 +113,10 @@ class BillController extends Controller
         $databill = Bill::all();
         $client = Client::all(); //fetch from Client Model
         $details_bill = details_bill::all(); //fetch from details_bill Model
+        $userName = User::where('id',Session::get('loginId'))->value('name');
         return view(
             'bill.show',
-            compact('data', 'databill', 'client', 'details_bill')
+            compact('data', 'databill', 'client', 'details_bill','userName')
         );
     }
 
@@ -126,7 +131,8 @@ class BillController extends Controller
         $data = Bill::all(); //fetch from Bill Model
         $client = Client::all(); //fetch from Client Model
         $details_bill = details_bill::all(); //fetch from details_bill Model
-        return view('bill.edit', compact('data', 'client', 'details_bill'));
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('bill.edit', compact('data', 'client', 'details_bill','userName'));
     }
 
     /**

@@ -107,8 +107,8 @@
                                             <td>{{ $task = DB::table('tasks')->where('milestone_id', $d->id)->where('status', '!=', 'Completed')->count() }}</td>
                                             <td>{{ $task = DB::table('tasks')->where('milestone_id', $d->id)->where('status', 'Completed')->count() }}</td>
                                             <td>
-                                                <form action="{{ route('task.destroy', $d->id) }}" method="POST">
-                                                    <a class="btn btn-default px-1 py-0" href="{{ route('taskProjectEdit',$d->id) }}"><i class="bi bi-pencil-square text-primary"></i></a>
+                                                <form action="{{ route('milestone.destroy', $d->id) }}" method="POST">
+                                                    <a class="btn btn-default px-1 py-0" href="{{ route('milestone.edit',$d->id) }}"><i class="bi bi-pencil-square text-primary"></i></a>
                                                     @csrf
                                                     @method('DELETE')
                                                     {{-- <a href="{{ route('department.destroy',$d->id) }}"><i class="bi bi-trash text-danger"></i></a> --}}

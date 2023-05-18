@@ -24,7 +24,7 @@
                     <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEmployee">
                         <i class="bi bi-plus-circle"></i>  Add Employee
                     </button> -->
-                    <a href="{{ route('document.show',$d) }}" role="button" class="btn btn-primary"><i class="bi bi-view-list"></i>  View Documents</a>
+                    <a href="{{ route('document.show', $d) }}" role="button" class="btn btn-primary"><i class="bi bi-view-list"></i>  View Documents</a>
                 </div>
             </div>
         <!--end breadcrumb-->
@@ -50,19 +50,22 @@
                             <h6 class="mb-0 text-uppercase">Edit Document</h6>
                             <hr/>
                                 <form class="form-body row g-3" action="{{ route('document.update', $doc->id) }}" method="POST" enctype="multipart/form-data" >
-                                    @csrf  
+                                    @csrf 
+                                    @method('PUT') 
 
                                 
                                     <div class="col-md-12">
                                         <label for="document_name" class="form-label">Document Title</label>
                                         <input type="text" class="form-control " id="document_name" name="document_name" value="{{ $doc->document_name }}" required>
-                                    </div>                                     
-                                    {{-- <input type="hidden" class="form-control " id="project_id" name="project_id" value="{{ $d->id }}">  --}}
+                                    </div>        
+                                                                 
+                                    <input type="hidden" class="form-control " id="project_id" name="project_id" value="{{ $d }}"> 
+                                    <input type="hidden" class="form-control " id="user_id" name="uploaded_by" value="{{ $userName }}">
                                     
                                     <input class="form-control" type="file" id="file" name="file"> 
                                                                     
                                     <div class="">
-                                        <button type="submit" class="btn btn-primary">Add Document</button>
+                                        <button type="submit" class="btn btn-primary">Upload Document</button>
                                     </div>
                                 </form>
                         </div>

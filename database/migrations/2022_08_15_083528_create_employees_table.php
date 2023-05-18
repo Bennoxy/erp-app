@@ -16,6 +16,7 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignId('user_id')->constrained();
             $table->string('position');
             $table->foreignId('department_id')->constrained();
             $table->string('address');

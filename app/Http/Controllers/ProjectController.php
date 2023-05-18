@@ -10,6 +10,8 @@ use App\Models\Subcontractor;
 use App\Models\Freelancer;
 use App\Models\Bill;
 use App\Models\details_bill;
+use App\Models\User;
+use Session;
 
 class ProjectController extends Controller
 {
@@ -20,8 +22,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
+        $userName = User::where('id',Session::get('loginId'))->value('name');
         $data = Project::all();
-        return view('project.index', compact('data'));
+        return view('project.index', compact('data','userName'));
     }
 
     /**
@@ -37,9 +40,10 @@ class ProjectController extends Controller
         $employee = Employee::all(); //fetch from Emplote Model
         $subcontractor = Subcontractor::all(); //fetch from Subcontractor Model
         $freelancer = Freelancer::all(); //fetch from Freelancer Model
+        $userName = User::where('id',Session::get('loginId'))->value('name');
         return view(
             'project.create',
-            compact('client', 'bill', 'employee', 'subcontractor', 'freelancer')
+            compact('client', 'bill', 'employee', 'subcontractor', 'freelancer', 'userName')
         );
     }
 
@@ -84,6 +88,7 @@ class ProjectController extends Controller
         $freelancer = Freelancer::all(); //fetch from Freelancer Model
         $data = Bill::all();
         $details_bill = details_bill::all(); //fetch from details_bill Model
+        $userName = User::where('id',Session::get('loginId'))->value('name');
         return view(
             'project.show',
             compact(
@@ -93,7 +98,8 @@ class ProjectController extends Controller
                 'subcontractor',
                 'freelancer',
                 'data',
-                'details_bill'
+                'details_bill',
+                'userName'
             )
         );
     }
@@ -112,6 +118,7 @@ class ProjectController extends Controller
         $employee = Employee::all(); //fetch from Emplote Model
         $subcontractor = Subcontractor::all(); //fetch from Subcontractor Model
         $freelancer = Freelancer::all(); //fetch from Freelancer Model
+        $userName = User::where('id',Session::get('loginId'))->value('name');
         return view(
             'project.edit',
             compact(
@@ -120,7 +127,8 @@ class ProjectController extends Controller
                 'bill',
                 'employee',
                 'subcontractor',
-                'freelancer'
+                'freelancer',
+                'userName'
             )
         );
     }

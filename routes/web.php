@@ -48,6 +48,7 @@ Route::get('/registration', [CustomAuthController::class, 'registration'])->midd
 Route::post('/register', [CustomAuthController::class, 'register'])->name('register');
 Route::post('/login', [CustomAuthController::class, 'loginUser'])->name('loginUser');
 Route::get('/dashboard', [CustomAuthController::class, 'dashboard'])->middleware('isLoggedIn');
+Route::get('/staffdashboard', [CustomAuthController::class, 'staffdashboard'])->middleware('isLoggedIn');
 Route::get('/logout', [CustomAuthController::class, 'logout']);
 
 // Route::get('admin', [AdminController::class, 'dashboard']);
@@ -119,17 +120,9 @@ Route::put('/taskProjectUpdate/{id}', [
 
 //Document Resource
 Route::resource('document', DocumentController::class);
-Route::get('/documentProjectCreate/{id}', [
-    DocumentController::class,
-    'createDocument',
-])->name('documentProjectCreate');
-Route::get('/documentProjectEdit/{id}', [
-    TaskController::class,
-    'editDocument',
-])->name('documentProjectEdit');
-Route::get('/downloadDoc/{id}', [DocumentController::class, 'download'])->name(
-    'downloadDoc'
-);
+Route::get('/documentProjectCreate/{id}', [DocumentController::class,'createDocument'])->name('documentProjectCreate');
+Route::get('/documentProjectEdit/{id}', [TaskController::class,'editDocument'])->name('documentProjectEdit');
+
 
 //Comment Resource
 Route::resource('comment', CommentController::class);
@@ -155,3 +148,5 @@ Route::resource('handbook', HandbookController::class);
 
 
 });
+
+Route::get('/downloadDoc/{id}', [DocumentController::class, 'download'])->name('downloadDoc');

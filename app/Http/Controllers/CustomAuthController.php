@@ -76,7 +76,7 @@ class CustomAuthController extends Controller
                         return redirect('dashboard');//expeditor
                         break;
                     case 7:
-                        return redirect('dashboard');//staff
+                        return redirect('staffdashboard');//staff
                         break;
                     case 8:
                         return redirect('dashboard');//technical
@@ -98,6 +98,7 @@ class CustomAuthController extends Controller
         $subcontractor = Subcontractor::all();
         $freelancer = Freelancer::all();
         $bill = Bill::all();
+        $userName = User::where('id',Session::get('loginId'))->value('name');
         //$task = Task::all();
         $vehicle = Vehicle::all();
         
@@ -110,7 +111,36 @@ class CustomAuthController extends Controller
                 'subcontractor',
                 'freelancer',
                 'bill',
+                'userName',
                 'vehicle',
+            )
+        );
+    }
+
+    public function staffdashboard()
+    {
+        $project = Project::all();
+        $client = Client::all();
+        $employee = Employee::all();
+        $subcontractor = Subcontractor::all();
+        $freelancer = Freelancer::all();
+        $bill = Bill::all();
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        $data = Task::all()->where('employee_id', Session::get('loginId'));
+        $vehicle = Vehicle::all();
+        
+        return view(
+            'staff.dashboard',
+            compact(
+                'project',
+                'client',
+                'employee',
+                'subcontractor',
+                'freelancer',
+                'bill',
+                'userName',
+                'vehicle',
+                'data',
             )
         );
     }

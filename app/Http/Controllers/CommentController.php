@@ -10,6 +10,8 @@ use App\Models\Subcontractor;
 use App\Models\Freelancer;
 use App\Models\Bill;
 use App\Models\details_bill;
+use App\Models\User;
+use Session;
 
 class CommentController extends Controller
 {
@@ -59,6 +61,7 @@ class CommentController extends Controller
         $freelancer = Freelancer::all(); //fetch from Freelancer Model
         $data = Bill::all();
         $details_bill = details_bill::all(); //fetch from details_bill Model
+        $userName = User::where('id',Session::get('loginId'))->value('name');
         return view(
             'comment.show',
             compact(
@@ -68,7 +71,8 @@ class CommentController extends Controller
                 'subcontractor',
                 'freelancer',
                 'data',
-                'details_bill'
+                'details_bill',
+                'userName'
             )
         );
     }

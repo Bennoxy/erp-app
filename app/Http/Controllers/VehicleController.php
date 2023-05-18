@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Vehicle;
+use App\Models\User;
+use Session;
 
 class VehicleController extends Controller
 {
@@ -15,7 +17,8 @@ class VehicleController extends Controller
     public function index()
     {
         $data = Vehicle::latest()->paginate(10);
-        return view('vehicle.index', compact('data'))->with(
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('vehicle.index', compact('data', 'userName'))->with(
             request()->input('page')
         );
     }

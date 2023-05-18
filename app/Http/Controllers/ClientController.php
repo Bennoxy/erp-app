@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\User;
+use Session;
 
 class ClientController extends Controller
 {
@@ -15,7 +17,8 @@ class ClientController extends Controller
     public function index()
     {
         $data = Client::latest()->paginate(10);
-        return view('client.index', compact('data'))->with(request()->input('page'));
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('client.index', compact('data','userName'))->with(request()->input('page'));
     }
 
     /**
@@ -25,7 +28,8 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('client.create');
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('client.create', compact('userName'));
     }
 
     /**
@@ -70,7 +74,8 @@ class ClientController extends Controller
     public function edit($id)
     {
         $d = Client::find($id);
-        return view('client.edit', compact('d') );
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('client.edit', compact('d','userName') );
     }
 
     /**

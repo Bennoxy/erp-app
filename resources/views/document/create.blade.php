@@ -56,8 +56,9 @@
                                     <div class="col-md-12">
                                         <label for="document_name" class="form-label">Document Title</label>
                                         <input type="text" class="form-control " id="document_name" name="document_name" required>
-                                    </div>                                     
+                                    </div>                                                                          
                                     <input type="hidden" class="form-control " id="project_id" name="project_id" value="{{ $d->id }}"> 
+                                    <input type="hidden" class="form-control " id="user_id" name="uploaded_by" value="{{ $userName }}">
                                     <p class="mb-0 text-danger">
                                         File type: (png, jpg, pdf, xls, xlsx, doc, docx, ppt, pptx)
                                     </p>

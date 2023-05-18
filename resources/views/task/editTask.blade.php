@@ -69,15 +69,15 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label for="employee_id" class="form-label">Assigned Employee</label>
-                                        <select id="employee_id" name="employee_id" class="form-select " required>
-                                            <option value="{{ $task->employee_id }}" hidden>{{$employeeName = DB::table('employees')->where('id', $task->employee_id)->value('name')}}</option>
+                                        <select id="employee_id" name="employee_id" class="form-select select-search" style="font-size: 1rem;" required>
+                                            <option value="{{ $task->employee_id }}" hidden>{{$employeeName = DB::table('users')->where('id', $task->employee_id)->value('name')}}</option>
                                             {{-- Loop and Populate your data --}}
-                                            @foreach($employee as $emp) 
+                                            @foreach($user as $emp) 
                                             <option value="{{$emp->id}}">{{$emp->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <label for="status" class="form-label">Status</label>
                                         <select id="status" name="status" class="form-select " required>
                                             <option value="{{ $task->status }}" hidden>{{ $task->status }}</option>
@@ -87,7 +87,7 @@
                                         </select>
                                     </div>
                                     <input type="hidden" name="project_id" value="{{ $task->project_id }}">
-                                    <div class="col-4">
+                                    <div class="col-md-6">
                                         <label for="milestone_id" class="form-label">Milestone</label>
                                         <select id="milestone_id" name="milestone_id" class="form-select ">
                                             <option value="{{ $task->milestone_id }}" hidden>{{$milestoneName = DB::table('milestones')->where('id', $task->milestone_id)->value('name')}}</option>

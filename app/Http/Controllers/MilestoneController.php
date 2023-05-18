@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Milestone;
 use App\Models\Task;
+use App\Models\User;
+use Session;
 
 class MilestoneController extends Controller
 {
@@ -28,14 +30,16 @@ class MilestoneController extends Controller
     {
         $d = Project::all();
         $milestone = Milestone::all();
-        return view('milestone.create', compact('d', 'milestone'));
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('milestone.create', compact('d', 'milestone', 'userName'));
     }
 
     public function createMilestone($id)
     {
         $d = Project::find($id);
         $milestone = Milestone::all()->where('project_id', $d->id);
-        return view('milestone.create', compact('d', 'milestone'));
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('milestone.create', compact('d', 'milestone','userName'));
     }
 
     /**
@@ -57,7 +61,7 @@ class MilestoneController extends Controller
 
         return redirect()
             ->route('milestone.show', [$proj_id])
-            ->with('success', 'Milestone created successfuly');
+            ->with('success', 'Milestone created successfully');
     }
 
     /**
@@ -70,7 +74,8 @@ class MilestoneController extends Controller
     {
         $d = Project::find($id);
         $data = Milestone::all();
-        return view('milestone.show', compact('d', 'data'));
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('milestone.show', compact('d', 'data','userName'));
     }
 
     /**
@@ -81,9 +86,10 @@ class MilestoneController extends Controller
      */
     public function edit($id)
     {
-        $milestone = Task::find($id);
-        $d = Project::where('id', $milestone->project_id)->value('id');
-        return view('milestone.edit', compact('d', 'milestone'));
+        $milestone = Milestone::find($id);
+        $d = Project::where('id', $milestone->project_id)->value('id');       
+        $userName = User::where('id',Session::get('loginId'))->value('name');
+        return view('milestone.edit', compact('d', 'milestone', 'userName'));
     }
 
     /**
@@ -95,7 +101,19 @@ class MilestoneController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $d = Milestone::find($id);
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $mile = $d->update($request->all());
+        $proj_id = $d->project_id;
+        // return redirect()
+        //     ->back()
+        //     ->with('success', 'Task created successfuly');
+
+        return redirect()
+            ->route('milestone.show', [$proj_id])
+            ->with('success', 'Milestone updated successfuly');
     }
 
     /**
@@ -106,6 +124,11 @@ class MilestoneController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $d = Milestone::find($id);
+        $proj_id = $d->project_id;
+        $d->delete();
+        return redirect()
+            ->route('milestone.show', [$proj_id])
+            ->with('success', 'Milestone deleted successfully');
     }
 }
